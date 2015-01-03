@@ -55,10 +55,6 @@ var PageGenerator = yeoman.generators.Base.extend({
         app_name: toTitleCase(this.pageName) + 'App',
         ctrl_name: toTitleCase(this.pageName) + 'Ctrl'
       };
-
-      console.log(context.app_name);
-      console.log(context.ctrl_name);
-
       this.template('_index.html', htmlFile, context);
       this.template('_page.js', jsFile, context);
     }
