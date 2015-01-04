@@ -13,12 +13,15 @@ gulp.task('prune', function(done) {
   bower({
     cmd: 'prune'
   });
+  // callback ensures task is run before dependent tasks
   done();
 });
 
 gulp.task('bower', ['prune'], function() {
-  gulp.src(bowerFiles({
-    filter: '**/*.js'
+  // return ensures task is run before dependent tasks
+  return gulp.src(bowerFiles({
+    filter: '**/*.js',
+    includeDev: config.includeDev
   }))
     .pipe(concat('vendor.js'))
     .pipe(gulpif(config.prod, uglify()))

@@ -6,6 +6,7 @@ var src = {
   images: client + '/images',
   fonts:  client + '/fonts',
   sass:   client + '/styles',
+  config: client + '/config',
   includes:   client + '/includes',
   models:     client + '/models',
   services:   client + '/services',
@@ -21,7 +22,6 @@ var dest = {
 };
 
 var globSpecs = client + '/**/*.spec.js';
-var vendorJS  = client + '/vendor/**/*';
 
 var globs = {
   html: [src.pages + '/**/*.html'],
@@ -38,8 +38,8 @@ var globs = {
   ],
   build: [build + '/**/*'],
   test: [
-    '!' + vendorJS,
     dest.js + '/vendor.js',
+    src.config + '/init.js',
     src.models + '/**/*.js',
     src.services + '/**/*.js',
     src.components + '/**/*.js'
@@ -52,5 +52,6 @@ module.exports = {
   src: src,
   dest: dest,
   globs: globs,
-  prod: false
+  prod: false,
+  includeDev: false
 };

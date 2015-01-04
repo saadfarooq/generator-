@@ -16,8 +16,11 @@ var ModuleGenerator = yeoman.generators.Base.extend({
       desc: 'The type of module (e.g. component, service, etc.)'
     });
 
-    this.folder = 'client/' + this.moduleType
-                  + 's/' + this.moduleName;
+    this.argument('folder', {
+      required: true,
+      type: String,
+      desc: 'The folder where component will be created'
+    });
   },
 
   writing: {
@@ -26,27 +29,28 @@ var ModuleGenerator = yeoman.generators.Base.extend({
     },
 
     files: function() {
-      var jsFile = this.folder + '/' + this.moduleName + '.js',
-        specFile = this.folder + '/' + this.moduleName + '.spec.js',
+      if(!this.moduleName) {
+        return console.error(chalk.red('A module name is required'));
+      }
+
+      var moduleName = this._.camelize(this.moduleName),
+        fileName = moduleName.toLowerCase(),
+        filePrefix = this.folder + '/' + fileName + '/' + fileName,
+        jsFile =  filePrefix + '.js',
+        specFile = filePrefix + '.spec.js',
         initFile = 'client/config/init.js';
 
       var context = {
-        module_name: this.moduleName,
+        module_name: moduleName,
         module_type: this.moduleType,
-        ng_module_name: this.config.get('modulePrefix')
-                        + '.' + this.moduleType + 's'
+        ng_module_name: this.config.get('modulePrefix') + '.'
+                        + this.moduleType + 's'
       };
-      this.template('_file.js',  jsFile, context);
+      this.template('_file.js', jsFile, context);
       this.template('_file.spec.js', specFile, context);
 
       console.log(chalk.green('Files written. Add any dependencies to module ' +
-                  'config in config/init.js'));
-
-      // this.writeFileFromString(
-      //   this.readFileAsString(initFile)
-      //   + 'angular.module(\' + context.ng_module_name + \', []);',
-      //   initFile
-      // );
+        'config in config/init.js'));
     }
   }
 });

@@ -13,5 +13,8 @@ gulp.task('dev', ['build', 'open', 'watch']);
 gulp.task('setProdBuild', function() {
   config.prod = true;
 });
+gulp.task('includeDev', function() {
+  config.includeDev = true;
+});
 gulp.task('prod', ['setProdBuild', 'build']);
 gulp.task('default', ['dev']);
