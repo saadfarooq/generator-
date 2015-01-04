@@ -28,16 +28,18 @@ var BasePageGenerator = yeoman.generators.Base.extend({
     },
 
     files: function() {
-      var htmlFile = this.folder + '/index.html',
-        jsFile = this.folder + '/' + this.pageName + '.js',
-        specFile = this.folder + '/' + this.pageName + '.spec.js';
+      var appName = this._.classify(this.pageName),
+        fileName  = this._.underscored(this.pageName),
+        filePrefix = this.folder + '/' + fileName + '/' + fileName,
+        htmlFile  = this.folder + '/' + fileName + '/index.html',
+        jsFile    = filePrefix + '.js',
+        specFile  = filePrefix + '.spec.js';
 
       var context = {
-        page_name: this.pageName,
+        page_name: fileName,
         page_title: this.pageTitle,
-        module_name: this._.capitalize(this.pageName),
-        ng_app_name: this._.capitalize(this.pageName + 'App'),
-        ng_ctrl_name: this._.capitalize(this.pageName + 'Ctrl')
+        ng_app_name: appName + 'App',
+        ng_ctrl_name: appName + 'Ctrl'
       };
 
       this.template('_index.html', htmlFile, context);

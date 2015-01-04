@@ -4,7 +4,7 @@ var yeoman = require('yeoman-generator'),
 
 var ModuleGenerator = yeoman.generators.Base.extend({
   initializing: function() {
-    this.argument('moduleName', {
+    this.argument('componentName', {
       required: true,
       type: String,
       desc: 'The name of the module (e.g. dialog)'
@@ -29,19 +29,18 @@ var ModuleGenerator = yeoman.generators.Base.extend({
     },
 
     files: function() {
-      if(!this.moduleName) {
+      if(!this.componentName) {
         return console.error(chalk.red('A module name is required'));
       }
 
-      var moduleName = this._.camelize(this.moduleName),
-        fileName = moduleName.toLowerCase(),
+      var componentName = this._.classify(this.componentName),
+        fileName = this._.underscored(componentName),
         filePrefix = this.folder + '/' + fileName + '/' + fileName,
         jsFile =  filePrefix + '.js',
-        specFile = filePrefix + '.spec.js',
-        initFile = 'client/config/init.js';
+        specFile = filePrefix + '.spec.js';
 
       var context = {
-        module_name: moduleName,
+        component_name: componentName,
         module_type: this.moduleType,
         ng_module_name: this.config.get('modulePrefix') + '.'
                         + this.moduleType + 's'

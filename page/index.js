@@ -24,12 +24,11 @@ var PageGenerator = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function(props) {
-      var pageName = this._.underscored(props.pageName);
       this.invoke('ng-multipage:_page', {
         args: [
-          pageName,
+          props.pageName,
           props.pageTitle,
-          config.src.pages + '/' + pageName
+          config.src.pages
         ]
       });
       done();

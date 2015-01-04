@@ -1,11 +1,14 @@
-describe('<%= module_name %>', function() {
-  var prop;
+describe('<%= component_name %>', function() {
+  var scope;
 
   beforeEach(function() {
-    inject();
+    module('<%= ng_module_name %>');
+    inject(function($rootScope) {
+      scope = $rootScope.$new();
+    });
   });
 
   it('should be defined', function() {
-
+    expect(scope).toBeDefined();
   });
 });

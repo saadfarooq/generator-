@@ -17,15 +17,15 @@ module.exports = yeoman.generators.Base.extend({
     ));
 
     var prompts = [{
-      name: 'packageName',
-      message: 'What is the package name to use for your app (no spaces) ?'
+      name: 'projectName',
+      message: 'What is the project name to use for your app ?'
     }, {
       name: 'modulePrefix',
       message: 'What prefix do you want to use to identify Angular modules ' + '(e.g. xx.models, xx.services, etc) ?'
     }];
 
     this.prompt(prompts, function(props) {
-      this.packageName = props.packageName;
+      this.projectName = props.projectName;
       this.modulePrefix = props.modulePrefix;
       this.config.set(props);
       done();
@@ -45,8 +45,9 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     app: function() {
+      var packageName = this._.slugify(this.projectName);
       var context = {
-        package_name: this.packageName
+        package_name: packageName
       };
       this.template('_package.json', 'package.json', context);
       this.template('_bower.json', 'bower.json', context);

@@ -40,6 +40,7 @@ var globs = {
   test: [
     dest.js + '/vendor.js',
     src.config + '/init.js',
+    src.pages + '/**/*.js',
     src.models + '/**/*.js',
     src.services + '/**/*.js',
     src.components + '/**/*.js'
