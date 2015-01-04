@@ -1,9 +1,9 @@
 'use strict';
 
 var path = require('path');
+var os = require('os');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
-var os = require('os');
 
 describe('ng-multipage:app', function () {
   before(function (done) {
@@ -11,7 +11,8 @@ describe('ng-multipage:app', function () {
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withOptions({ 'skip-install': true })
       .withPrompt({
-        someOption: true
+        projectName: 'Project Test',
+        modulePrefix: 'pt'
       })
       .on('end', done);
   });
@@ -21,7 +22,12 @@ describe('ng-multipage:app', function () {
       'bower.json',
       'package.json',
       '.editorconfig',
-      '.jshintrc'
+      '.jshintrc',
+      '.gitignore',
+      'client/pages/index.html',
+      'client/pages/main.js',
+      '.yo-rc.json',
+      'gulpfile.js'
     ]);
   });
 });

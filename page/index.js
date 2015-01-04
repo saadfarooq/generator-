@@ -24,7 +24,7 @@ var PageGenerator = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function(props) {
-      this.invoke('ng-multipage:_page', {
+      this.composeWith('ng-multipage:_page', {
         args: [
           props.pageName,
           props.pageTitle,
