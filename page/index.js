@@ -31,6 +31,13 @@ var PageGenerator = yeoman.generators.Base.extend({
           config.src.pages
         ]
       });
+      this.composeWith('ng-multipage:_style', {
+        args: [
+          props.pageName,
+          'page',
+          config.src.sass
+        ]
+      });
       done();
     }.bind(this));
   },

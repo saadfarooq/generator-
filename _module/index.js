@@ -51,7 +51,7 @@ var ModuleGenerator = yeoman.generators.Base.extend({
       console.log(chalk.green('Files written. Add any dependencies to module ' +
         'config in config/init.js'));
     }
-  }
+  },
 });
 
 module.exports = ModuleGenerator;

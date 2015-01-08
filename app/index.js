@@ -35,13 +35,17 @@ module.exports = yeoman.generators.Base.extend({
   writing: {
     scaffoldFolders: function() {
       this.mkdir("client");
-      this.mkdir("client/styles");
       this.mkdir("client/images");
       this.mkdir("client/fonts");
       this.mkdir("client/pages");
       this.mkdir("client/components");
       this.mkdir("client/services");
       this.mkdir("client/config");
+      this.mkdir("client/styles");
+      this.mkdir("client/styles/base");
+      this.mkdir("client/styles/lib");
+      this.mkdir("client/styles/components");
+      this.mkdir("client/styles/pages");
     },
 
     app: function() {
@@ -77,6 +81,14 @@ module.exports = yeoman.generators.Base.extend({
         module_prefix: this.modulePrefix
       };
       this.template('_init.js', 'client/config/init.js', context);
+    },
+
+    styles: function() {
+      this.copy('_main.scss', 'client/styles/main.scss');
+      this.copy('styles/_empty.scss', 'client/styles/base/_base.scss');
+      this.copy('styles/_empty.scss', 'client/styles/lib/_lib.scss');
+      this.copy('styles/_empty.scss', 'client/styles/components/_components.scss');
+      this.copy('styles/_empty.scss', 'client/styles/pages/_pages.scss');
     }
   },
 

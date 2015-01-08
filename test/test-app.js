@@ -27,7 +27,15 @@ describe('ng-multipage:app', function () {
       'client/pages/index.html',
       'client/pages/main.js',
       '.yo-rc.json',
-      'gulpfile.js'
+      'gulpfile.js',
+      'client/styles/main.scss'
     ]);
+  });
+
+  it('creates default styles files', function() {
+    assert.fileContent('client/styles/main.scss',
+      '// bower:scss\n// endbower\n\n@import "base/base";\n'
+      + '@import "lib/lib";\n@import "pages/pages";'
+    );
   });
 });

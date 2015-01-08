@@ -20,7 +20,7 @@ var ModuleGenerator = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function(props) {
       var compName = this._.camelize(props.componentName);
-      this.invoke('ng-multipage:_module', {
+      this.composeWith('ng-multipage:_module', {
         args: [
           props.componentName,
           type,
@@ -28,6 +28,15 @@ var ModuleGenerator = yeoman.generators.Base.extend({
           config.src[type + 's']
         ]
       });
+      this.composeWith('ng-multipage:_style', {
+        args: [
+          props.componentName,
+          type,
+          // pick the folder from config
+          config.src.sass
+        ]
+      });
+
       done();
     }.bind(this));
   },
