@@ -39,7 +39,7 @@ var globs = {
     src.components + '/**/*.js',
     src.resources + '/**/*.js'
   ],
-  build: [build + '/**/*'],
+  build: [build + '/**/*.*'],
   test: [
     dest.js + '/vendor.js',
     src.config + '/init.js',

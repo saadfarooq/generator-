@@ -66,8 +66,6 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('_index.html', 'client/pages/index.html');
       this.template('_main.js', 'client/pages/main.js', context);
       this.directory('_includes', 'client/includes');
-      // this.copy('_footer.html', 'client/includes/_footer.html');
-      // this.copy('_header.html', 'client/includes/_header.html');
     },
 
     resources: function() {
@@ -91,7 +89,8 @@ module.exports = yeoman.generators.Base.extend({
 
     config: function() {
       var context = {
-        module_prefix: this.modulePrefix
+        module_prefix: this.modulePrefix,
+        res_deps: 'firebase'
       };
       this.template('_init.js', 'client/config/init.js', context);
     },
