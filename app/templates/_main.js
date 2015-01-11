@@ -1,4 +1,4 @@
-angular.module('<%= module_prefix %>.pages.home',
+angular.module('HomePageApp',
   [
     '<%= module_prefix %>.services',
     '<%= module_prefix %>.components',

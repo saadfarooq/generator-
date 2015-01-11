@@ -11,6 +11,7 @@ var src = {
   models:     client + '/models',
   services:   client + '/services',
   components: client + '/components',
+  resources:  client + '/resources'
 };
 
 var dest = {
@@ -32,9 +33,11 @@ var globs = {
   ],
   common: [
     '!' + globSpecs,
+    src.config + '/**/*.js',
     src.models + '/**/*.js',
     src.services + '/**/*.js',
-    src.components + '/**/*.js'
+    src.components + '/**/*.js',
+    src.resources + '/**/*.js'
   ],
   build: [build + '/**/*'],
   test: [
@@ -43,7 +46,8 @@ var globs = {
     src.pages + '/**/*.js',
     src.models + '/**/*.js',
     src.services + '/**/*.js',
-    src.components + '/**/*.js'
+    src.components + '/**/*.js',
+    src.resources + '/**/*.js'
   ]
 };
 
