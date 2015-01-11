@@ -28,7 +28,8 @@ describe('ng-multipage:app', function () {
       'client/pages/main.js',
       '.yo-rc.json',
       'gulpfile.js',
-      'client/styles/main.scss'
+      'client/styles/main.scss',
+      'client/resources/resources.js'
     ]);
   });
 

@@ -21,12 +21,17 @@ module.exports = yeoman.generators.Base.extend({
       message: 'What is the project name to use for your app ?'
     }, {
       name: 'modulePrefix',
-      message: 'What prefix do you want to use to identify Angular modules ' + '(e.g. xx.models, xx.services, etc) ?'
+      message: 'What prefix do you want to use to identify Angular modules ' +
+              '(e.g. xx.models, xx.services, etc) ?'
+    }, {
+      name: 'firebaseURL',
+      message: 'What is the Firebase endpoint for your app ?'
     }];
 
     this.prompt(prompts, function(props) {
       this.projectName = props.projectName;
       this.modulePrefix = props.modulePrefix;
+      this.firebaseURL  = props.firebaseURL;
       this.config.set(props);
       done();
     }.bind(this));
@@ -34,18 +39,19 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     scaffoldFolders: function() {
-      this.mkdir("client");
-      this.mkdir("client/images");
-      this.mkdir("client/fonts");
-      this.mkdir("client/pages");
-      this.mkdir("client/components");
-      this.mkdir("client/services");
-      this.mkdir("client/config");
-      this.mkdir("client/styles");
-      this.mkdir("client/styles/base");
-      this.mkdir("client/styles/lib");
-      this.mkdir("client/styles/components");
-      this.mkdir("client/styles/pages");
+      this.mkdir('client');
+      this.mkdir('client/images');
+      this.mkdir('client/fonts');
+      this.mkdir('client/pages');
+      this.mkdir('client/components');
+      this.mkdir('client/services');
+      this.mkdir('client/config');
+      this.mkdir('client/resources');
+      this.mkdir('client/styles');
+      this.mkdir('client/styles/base');
+      this.mkdir('client/styles/lib');
+      this.mkdir('client/styles/components');
+      this.mkdir('client/styles/pages');
     },
 
     app: function() {
@@ -59,10 +65,20 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     page: function() {
+      var context = {
+        module_prefix: this.config.get('modulePrefix')
+      };
       this.copy('_index.html', 'client/pages/index.html');
-      this.copy('_main.js', 'client/pages/main.js');
-      this.copy('_footer.html', 'client/includes/_footer.html');
-      this.copy('_header.html', 'client/includes/_header.html');
+      this.template('_main.js', 'client/pages/main.js', context);
+      this.directory('_includes', 'client/includes');
+    },
+
+    resources: function() {
+      var context = {
+        module_prefix: this.config.get('modulePrefix'),
+        firebase_url: this.firebaseURL
+      };
+      this.template('resources/_firebase.js', 'client/resources/resources.js', context);
     },
 
     projectfiles: function() {
@@ -78,7 +94,8 @@ module.exports = yeoman.generators.Base.extend({
 
     config: function() {
       var context = {
-        module_prefix: this.modulePrefix
+        module_prefix: this.modulePrefix,
+        res_deps: 'firebase'
       };
       this.template('_init.js', 'client/config/init.js', context);
     },
@@ -89,6 +106,11 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('styles/_empty.scss', 'client/styles/lib/_lib.scss');
       this.copy('styles/_empty.scss', 'client/styles/components/_components.scss');
       this.copy('styles/_empty.scss', 'client/styles/pages/_pages.scss');
+    },
+
+    installResourceLibrary: function() {
+      this.bowerInstall(['firebase'], { 'save': true });
+      this.bowerInstall(['angularfire'], { 'save': true });
     }
   },
 

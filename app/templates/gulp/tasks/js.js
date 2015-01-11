@@ -5,7 +5,7 @@ var gulp  = require('gulp'),
 
 gulp.task('js', function() {
   gulp.src(config.globs.js)
-    .pipe(gulp.dest(config.dest.js));
+    .pipe(gulp.dest(config.buildFolder)); // these go with HTML files
 });
 
 gulp.task('commonjs', function() {
