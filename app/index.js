@@ -105,8 +105,8 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     installResourceLibrary: function() {
-      // this.bowerInstall(['firebase'], { 'save': true });
-      // this.bowerInstall(['angularfire'], { 'save': true });
+      this.bowerInstall(['firebase'], { 'save': true });
+      this.bowerInstall(['angularfire'], { 'save': true });
     }
   },
 
