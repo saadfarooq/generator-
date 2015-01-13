@@ -1,14 +1,14 @@
 {
-  "name": "generator-ng-multipage",
-  "version": "0.0.0",
-  "description": "Yeoman generator",
+  "name": "generator-nobular",
+  "version": "0.0.2",
+  "description": "Generate an modular angular project with no-backend servers",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "generator-ng-multipage/generator-ng-multipage",
+  "repository": "https://github.com/saadfarooq/generator-nobular",
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "Saad Farooq",
+    "email": "sa@dfarooq.com",
+    "url": "http://saa.dfarooq.com"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -21,7 +21,15 @@
     "page"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "framework",
+    "component",
+    "front-end",
+    "app",
+    "angular",
+    "no-backend",
+    "firebase",
+    "deployd"
   ],
   "dependencies": {
     "yeoman-generator": "^0.18.0",

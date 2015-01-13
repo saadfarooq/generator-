@@ -20,7 +20,7 @@ var ModuleGenerator = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function(props) {
       var compName = this._.camelize(props.componentName);
-      this.composeWith('ng-multipage:_module', {
+      this.composeWith('nobular:_module', {
         args: [
           props.componentName,
           type,
@@ -28,7 +28,7 @@ var ModuleGenerator = yeoman.generators.Base.extend({
           config.src[type + 's']
         ]
       });
-      this.composeWith('ng-multipage:_style', {
+      this.composeWith('nobular:_style', {
         args: [
           props.componentName,
           type,

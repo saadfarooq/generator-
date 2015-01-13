@@ -5,7 +5,7 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 
-describe('ng-multipage:_page', function () {
+describe('nobular:_page', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../_page'))
       .inDir(path.join(os.tmpdir(), './temp-test'))

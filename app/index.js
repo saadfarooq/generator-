@@ -13,7 +13,7 @@ module.exports = yeoman.generators.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the Angular ' + chalk.red('NgMultipage') + ' generator!'
+      'Welcome to the ' + chalk.red('nobular') + ' project generator!'
     ));
 
     var prompts = [{
@@ -70,6 +70,7 @@ module.exports = yeoman.generators.Base.extend({
       };
       this.copy('_index.html', 'client/pages/index.html');
       this.template('_main.js', 'client/pages/main.js', context);
+      this.template('_main.spec.js', 'client/pages/main.spec.js', context);
       this.directory('_includes', 'client/includes');
     },
 

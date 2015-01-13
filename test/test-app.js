@@ -5,14 +5,16 @@ var os = require('os');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 
-describe('ng-multipage:app', function () {
+describe('nobular:app', function () {
+  this.timeout(30000);
   before(function (done) {
     helpers.run(path.join(__dirname, '../app'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
       .withOptions({ 'skip-install': true })
       .withPrompt({
         projectName: 'Project Test',
-        modulePrefix: 'pt'
+        modulePrefix: 'pt',
+        firebaseURL: 'test-url'
       })
       .on('end', done);
   });

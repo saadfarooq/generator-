@@ -24,14 +24,14 @@ var PageGenerator = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function(props) {
-      this.composeWith('ng-multipage:_page', {
+      this.composeWith('nobular:_page', {
         args: [
           props.pageName,
           props.pageTitle,
           config.src.pages
         ]
       });
-      this.composeWith('ng-multipage:_style', {
+      this.composeWith('nobular:_style', {
         args: [
           props.pageName,
           'page',

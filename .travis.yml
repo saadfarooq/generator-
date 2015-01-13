@@ -3,4 +3,5 @@ node_js:
   - '0.10'
 before_install:
   - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-ng-multipage' ]; then cd .. && eval "mv $currentfolder generator-ng-multipage" && cd generator-ng-multipage; fi
+  - if [ "$currentfolder" != 'generator-nobular' ]; then cd .. && eval "mv $currentfolder generator-nobular" && cd generator-nobular; fi
+  - 'npm install -g bower'

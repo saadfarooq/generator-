@@ -9,7 +9,7 @@ var os = require('os');
 var sassFile = 'client/styles/types/_test_component.scss',
   componentFile = 'client/styles/types/_types.scss';
 
-describe('ng-multipage:_style', function() {
+describe('nobular:_style', function() {
   before(function(done) {
     helpers.run(path.join(__dirname, '../_style'))
       .inDir(path.join(os.tmpdir(), './temp-test'), function(dir) {
