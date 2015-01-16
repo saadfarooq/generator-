@@ -5,6 +5,7 @@ var gulp  = require('gulp'),
 // for testing we include devDependencies in vendor.js
 gulp.task('tdd', ['includeDev', 'bower'], function(done) {
   karma.start({
+    configFile: config.karmaConf,
     files: config.globs.test,
     singleRun: false
   }, function() {
