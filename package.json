@@ -1,6 +1,6 @@
 {
   "name": "generator-nobular",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generate an modular angular project with no-backend servers",
   "license": "MIT",
   "main": "app/index.js",
