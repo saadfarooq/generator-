@@ -61,11 +61,6 @@ module.exports = yeoman.generators.Base.extend({
       this.mkdir('client/services');
       this.mkdir('client/config');
       this.mkdir('client/resources');
-      this.mkdir('client/styles');
-      this.mkdir('client/styles/base');
-      this.mkdir('client/styles/lib');
-      this.mkdir('client/styles/components');
-      this.mkdir('client/styles/pages');
       if (this.server != 'firebase') {
         this.invoke('nobular:_server');
       }
@@ -125,18 +120,14 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     styles: function() {
-      this.copy('_main.scss', 'client/styles/main.scss');
-      this.copy('styles/_empty.scss', 'client/styles/base/_base.scss');
-      this.copy('styles/_empty.scss', 'client/styles/lib/_lib.scss');
-      this.copy('styles/_empty.scss', 'client/styles/components/_components.scss');
-      this.copy('styles/_empty.scss', 'client/styles/pages/_pages.scss');
+      this.directory('_styles', 'client/styles');
     },
 
     installResourceLibrary: function() {
       var self = this;
       var firebaseInstall = function() {
         self.bowerInstall(['firebase', 'angularfire'], { 'save': true });
-        self.npmInstall(['gulp-connect'], { 'save': true });
+        self.npmInstall(['gulp-connect'], { 'save-dev': true });
       };
       var deploydInstall = function() {
         self.npmInstall('deployd/deployd', { 'save': true });

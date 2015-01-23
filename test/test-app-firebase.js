@@ -37,9 +37,14 @@ describe('nobular:app with firebase', function () {
 
   it('creates default styles files', function() {
     assert.fileContent('client/styles/main.scss',
-      '// bower:scss\n// endbower\n\n@import "base/base";\n'
-      + '@import "lib/lib";\n@import "pages/pages";'
-    );
+      '// bower:scss\n// endbower\n\n');
+    assert.fileContent('client/styles/main.scss',
+      '@import "base/base";\n'
+      + '@import "lib/lib";');
+    assert.fileContent('client/styles/main.scss',
+      '@import "patterns/patterns";\n@import "pages/pages";\n'
+      + '@import "components/components";');
+
   });
 
   it('creates firebase resoures', function() {
