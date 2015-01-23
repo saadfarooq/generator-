@@ -5,17 +5,17 @@ var os = require('os');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 
-describe('nobular:app', function () {
-  this.timeout(30000);
+describe('nobular:app with firebase', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../app'))
       .inDir(path.join(os.tmpdir(), './temp-test'))
-      .withOptions({ 'skip-install': true })
-      .withPrompt({
+      .withPrompts({
         projectName: 'Project Test',
         modulePrefix: 'pt',
+        server: 'firebase',
         firebaseURL: 'test-url'
       })
+      .withArguments(['skip-install'])
       .on('end', done);
   });
 
@@ -40,5 +40,15 @@ describe('nobular:app', function () {
       '// bower:scss\n// endbower\n\n@import "base/base";\n'
       + '@import "lib/lib";\n@import "pages/pages";'
     );
+  });
+
+  it('creates firebase resoures', function() {
+    assert.fileContent('client/config/init.js',
+      'angular.module(\'pt.resources\', [\'firebase\']);');
+
+    assert.fileContent('client/resources/resources.js',
+      'function($firebase)');
+    assert.noFileContent('client/includes/_footer.html',
+      '/dpd\.js');
   });
 });

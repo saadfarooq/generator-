@@ -22,16 +22,30 @@ module.exports = yeoman.generators.Base.extend({
     }, {
       name: 'modulePrefix',
       message: 'What prefix do you want to use to identify Angular modules ' +
-              '(e.g. xx.models, xx.services, etc) ?'
+        '(e.g. xx.models, xx.services, etc) ?'
     }, {
-      name: 'firebaseURL',
-      message: 'What is the Firebase endpoint for your app ?'
+      type: 'list',
+      name: 'server',
+      message: 'Which nobackend server do you want to use ?',
+      choices: [{
+        name: 'Firebase',
+        value: 'firebase'
+      }, {
+        name: 'Deployd',
+        value: 'deployd'
+      }]
+    }, {
+      when: function(props) { return props.server == 'firebase' },
+      name: 'firebaseUrl',
+      message: 'What is the URL for your firebase backend ?'
     }];
 
     this.prompt(prompts, function(props) {
       this.projectName = props.projectName;
       this.modulePrefix = props.modulePrefix;
-      this.firebaseURL  = props.firebaseURL;
+      this.firebaseUrl = props.firebaseUrl;
+      this.server = props.server;
+      // write to .yo-rc.json to read in subgenerators
       this.config.set(props);
       done();
     }.bind(this));
@@ -52,6 +66,9 @@ module.exports = yeoman.generators.Base.extend({
       this.mkdir('client/styles/lib');
       this.mkdir('client/styles/components');
       this.mkdir('client/styles/pages');
+      if (this.server != 'firebase') {
+        this.invoke('nobular:_server');
+      }
     },
 
     app: function() {
@@ -66,20 +83,25 @@ module.exports = yeoman.generators.Base.extend({
 
     page: function() {
       var context = {
-        module_prefix: this.config.get('modulePrefix')
+        module_prefix: this.config.get('modulePrefix'),
+        dpd_js: this.server == 'firebase' ? '' :
+        '<script src="/dpd.js"></script>'
       };
       this.copy('_index.html', 'client/pages/index.html');
       this.template('_main.js', 'client/pages/main.js', context);
       this.template('_main.spec.js', 'client/pages/main.spec.js', context);
-      this.directory('_includes', 'client/includes');
+      this.copy('_includes/_header.html', 'client/includes/_header.html');
+      this.template('_includes/_footer.html', 'client/includes/_footer.html',
+                  context);
     },
 
     resources: function() {
       var context = {
         module_prefix: this.config.get('modulePrefix'),
-        firebase_url: this.firebaseURL
+        firebase_url: this.firebaseUrl
       };
-      this.template('resources/_firebase.js', 'client/resources/resources.js', context);
+      this.template('_resources/' + this.server + '.js',
+                      'client/resources/resources.js', context);
     },
 
     projectfiles: function() {
@@ -91,12 +113,13 @@ module.exports = yeoman.generators.Base.extend({
     build: function() {
       this.directory('gulp', 'gulp');
       this.copy('_gulpfile.js', 'gulpfile.js');
+      this.copy('_tasks/' + this.server + '.js', 'gulp/tasks/server.js');
     },
 
     config: function() {
       var context = {
         module_prefix: this.modulePrefix,
-        res_deps: 'firebase'
+        res_deps: this.server == 'firebase' ? '\'firebase\'' : ''
       };
       this.template('_init.js', 'client/config/init.js', context);
     },
@@ -110,8 +133,20 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     installResourceLibrary: function() {
-      this.bowerInstall(['firebase'], { 'save': true });
-      this.bowerInstall(['angularfire'], { 'save': true });
+      var self = this;
+      var firebaseInstall = function() {
+        self.bowerInstall(['firebase', 'angularfire'], { 'save': true });
+        self.npmInstall(['gulp-connect'], { 'save': true });
+      };
+      var deploydInstall = function() {
+        self.npmInstall('deployd/deployd', { 'save': true });
+        self.npmInstall(['express','tiny-lr','connect-livereload','http'],
+                        { 'save-dev': true });
+      };
+
+      if (!this.options['skip-install']) {
+        this.server == 'firebase' ? firebaseInstall() : deploydInstall();
+      }
     }
   },
 
