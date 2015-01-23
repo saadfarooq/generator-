@@ -13,7 +13,6 @@ describe('nobular:_style', function() {
   before(function(done) {
     helpers.run(path.join(__dirname, '../_style'))
       .inDir(path.join(os.tmpdir(), './temp-test'), function(dir) {
-        console.log(path.join(dir, '/client/styles/types/_types.scss'));
         fs.outputFileSync(
           path.join(dir, '/client/styles/types/_types.scss'),
           '@import \"_basic_component\";\n')

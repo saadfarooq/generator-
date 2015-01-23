@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 // Require all tasks in gulp/tasks, including subfolders
 requireDir('./gulp/tasks', { recurse: true });
 
-gulp.task('dev', ['watch']);
+gulp.task('dev', ['server']);
 gulp.task('setProdBuild', function() {
   config.prod = true;
 });

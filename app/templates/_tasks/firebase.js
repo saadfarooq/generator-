@@ -3,7 +3,13 @@ var gulp  = require('gulp'),
   debug   = require('gulp-debug'),
   config  = require('../config');
 
-gulp.task('watch', ['connect'], function() {
+gulp.task('server', ['build'], function() {
+  connect.server({
+    root: config.buildFolder,
+    port: 9000,
+    livereload: true
+  });
+
   gulp.watch('./bower.json', ['bower', 'wiresass']);
   gulp.watch(config.globs.js, ['js']);
   gulp.watch(config.globs.common, ['commonjs']);
@@ -13,3 +19,4 @@ gulp.task('watch', ['connect'], function() {
     return gulp.src('').pipe(connect.reload());
   });
 });
+
