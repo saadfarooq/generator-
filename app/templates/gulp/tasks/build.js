@@ -1,3 +1,6 @@
-var gulp = require('gulp');
+var gulp = require('gulp'),
+  gulpSequence = require('gulp-sequence');
 
-gulp.task('build', ['bower', 'html', 'wiresass', 'css', 'js', 'commonjs']);
+gulp.task('build',
+  gulpSequence(['bower', 'wiresass'],
+               ['html', 'css', 'js', 'commonjs']));
