@@ -130,7 +130,7 @@ module.exports = yeoman.generators.Base.extend({
         self.npmInstall(['gulp-connect'], { 'save-dev': true });
       };
       var deploydInstall = function() {
-        self.npmInstall('deployd/deployd', { 'save': true });
+        self.npmInstall('deployd', { 'save': true });
         self.npmInstall(['express','tiny-lr','connect-livereload','http'],
                         { 'save-dev': true });
       };
